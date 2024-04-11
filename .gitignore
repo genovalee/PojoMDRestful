@@ -1,0 +1,9 @@
+*.jdb
+*.lck
+/.adf/
+/.data/
+/src/
+/Demo/public_html/
+/Demo/Extlibs/
+/Demo/classes/
+/Demo/src/demo/entity/
