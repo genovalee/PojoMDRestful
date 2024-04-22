@@ -330,13 +330,13 @@ public class InsertDbT0nj0547d {
 }
 </pre> 
 ## Create Restful Service(post method)
-![set post](https://github.com/genovalee/PojoMDRest/blob/master/Demo/src/demo/entity/Image_020.png)
+![set post](https://github.com/genovalee/PojoMDRestful/blob/master/Demo/src/demo/entity/Image_020.png)
 ## Create Restful Service(get method)
-![set get](https://github.com/genovalee/PojoMDRest/blob/master/Demo/src/demo/entity/Image_022.png)
+![set get](https://github.com/genovalee/PojoMDRestful/blob/master/Demo/src/demo/entity/Image_022.png)
 ## Create Restful Service(OK)
-![ok](https://github.com/genovalee/PojoMDRest/blob/master/Demo/src/demo/entity/Image_023.png)
+![ok](https://github.com/genovalee/PojoMDRestful/blob/master/Demo/src/demo/entity/Image_023.png)
 ## 資料get測試
-![get](https://github.com/genovalee/PojoMDRest/blob/master/Demo/src/demo/entity/Image_017.png)
+![get](https://github.com/genovalee/PojoMDRestful/blob/master/Demo/src/demo/entity/Image_017.png)
 ## 資料post測試
-![post](https://github.com/genovalee/PojoMDRest/blob/master/Demo/src/demo/entity/Image_018.png)
-![query](https://github.com/genovalee/PojoMDRest/blob/master/Demo/src/demo/entity/Image_019.png)
+![post](https://github.com/genovalee/PojoMDRestful/blob/master/Demo/src/demo/entity/Image_018.png)
+![query](https://github.com/genovalee/PojoMDRestful/blob/master/Demo/src/demo/entity/Image_019.png)
