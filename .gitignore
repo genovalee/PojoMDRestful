@@ -5,4 +5,5 @@
 /src/
 /Demo/Extlibs/
 /Demo/classes/
-/Demo/src/demo/entity/
+/Demo/src/demo/entity/*.json
+/Demo/src/demo/entity/*.java
