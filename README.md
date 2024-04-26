@@ -2,7 +2,7 @@
 ## 建立 MD 資料表
 
 MASTER TABLE:
-<pre style="color:#000000;background:#ffffff;">
+```sql
 create table t0nj0547 
 ( 
   BUSSRFNO     VARCHAR2(8),           --商業統一編號  
@@ -15,10 +15,9 @@ create table t0nj0547
   TXDAT        DATE, 
   constraint PK_T0NJ0547 primary key (BUSSRFNO, REGOFC) 
 ); 
-</pre>
+```
 DETAIL TABLE
-
-<pre style="color:#000000;background:#ffffff;">
+```sql
 create table t0nj0547d 
 ( 
   BUSSRFNO  VARCHAR2(8),               --商業統一編號  
@@ -31,13 +30,12 @@ create table t0nj0547d
   constraint FK_T0NJ0547D foreign key (BUSSRFNO, REGOFC) 
   references T0NJ0547 (BUSSRFNO, REGOFC) on delete cascade 
 ); 
-</pre>
+```
 
 ## 增設Table物件，建立Java Class並宣告變數，並產生get/set method
 
 使用jackson Annotation @JsonProperty設定json payload與宣告變數的對應關係
-
-<pre style="color:#000000;background:#ffffff;">
+```java
 public class T0nj0547d {
     @JsonProperty("Business_Seq_No")
     private String it;
@@ -46,9 +44,9 @@ public class T0nj0547d {
     @JsonProperty("Business_Item_Desc")
     private String salitcomt;
 }
-</pre>
+```
 
-<pre style="color:#000000;background:#ffffff;">
+```java
 public class T0nj0547{
     @JsonProperty("President_No")
     private String bussrfno;
@@ -69,19 +67,19 @@ public class T0nj0547{
     @JsonProperty("Business_Item_Old")
     private List&lt;T0nj0547d&gt; t0nj0547d;
 }
-</pre>
+```
 ## 增設Java Interface作為service post 實作之用
 ### post使用addT0nj0547方法，get使用getT0nj0547ByBussRfnoRegoFc方法
 
-<pre style="color:#000000;background:#ffffff;">
-interface T0nj0547Service {
+```java
+public interface T0nj0547Service {
     Response addT0nj0547(T0nj0547 t47);
     T0nj0547 getT0nj0547ByBussRfnoRegoFc(String bussrfno, String regofc);
 }
-</pre>
+```
 ## 增設Java Class實作Interface內宣告的類別
 ### Override addT0nj0547方法，定義jsonSchema內容
-<pre style="color:#000000;background:#ffffff;">
+```java
 public class T0nj0547ServiceImp implements T0nj0547Service {
     private Connection conn;
     private String resp = "";
@@ -99,9 +97,9 @@ public class T0nj0547ServiceImp implements T0nj0547Service {
         conn = ds.getConnection();
         conn.setAutoCommit(true);
     }
-</pre>
+```
 ### Override addT0nj0547方法，參數為json payload並從 header取的基本認證的資料
-<pre style="color:#000000;background:#ffffff;">
+```java
     public Response addT0nj0547(String payload, @HeaderParam("authorization") String authString) {
         try {
             if (!isUserAuthenticated(authString)) {
@@ -152,10 +150,10 @@ public class T0nj0547ServiceImp implements T0nj0547Service {
             }
         }
     }
-</pre>
+```
 
 ## Override getT0nj0547ByRfnoRegoFc方法，回傳T0nj0547物件
-<pre style="color:#000000;background:#ffffff;">
+```java
     //get url example http://localhost:7101/v0/api/get?bussrfno=01465626&regofc=123456789A
     @Override
     public T0nj0547 getT0nj0547ByBussRfnoRegoFc(String bussrfno, String regofc) {
@@ -187,10 +185,10 @@ public class T0nj0547ServiceImp implements T0nj0547Service {
         }
         return null;
     }    
-</pre>
+```
 
 ### 增設private extractT0nj0547FromResultSet方法，return T0nj0547物件
-<pre style="color:#000000;background:#ffffff;">
+```java
     private T0nj0547 extractT0nj0547FromResultSet(ResultSet rs, List&lt;T0nj0547d&gt; t0nj0547ds) throws SQLException {
         T0nj0547 t0nj0547 = new T0nj0547();
         t0nj0547.setBussrfno(rs.getString("bussrfno"));
@@ -203,10 +201,10 @@ public class T0nj0547ServiceImp implements T0nj0547Service {
         t0nj0547.setT0nj0547d(t0nj0547ds);
         return t0nj0547;
     }
-</pre>
+```
 
 ### 增設private extractT0nj0547dFromResultSet方法，return T0nj0547d物件
-<pre style="color:#000000;background:#ffffff;">
+```java
     private T0nj0547d extractT0nj0547dFromResultSet(ResultSet rs) throws SQLException {
         T0nj0547d t0nj0547d = new T0nj0547d();
         t0nj0547d.setBussrfno(rs.getString("bussrfno"));
@@ -216,9 +214,9 @@ public class T0nj0547ServiceImp implements T0nj0547Service {
         t0nj0547d.setSalitcomt(rs.getString("salitcomt"));
         return t0nj0547d;
     }
-</pre>
+```
 ### 增設private isUserAuthenticated是否有基本認證方法，return boolean，true驗證通過，false驗證失敗
-<pre style="color:#000000;background:#ffffff;">
+```java
     private boolean isUserAuthenticated(String authString) {
         String decodedAuth = null;
         // Header is in the format "Basic YXBwdXNlcjAxOnBEZTZHRTNmQXBjQWNHYlY="
@@ -237,7 +235,6 @@ public class T0nj0547ServiceImp implements T0nj0547Service {
         } catch (Exception e) {
             return false;
         }
-        //        System.out.println(decodedAuth);
 
         StringTokenizer tokenizer = new StringTokenizer(decodedAuth, ":");
         String userName = tokenizer.nextToken();
@@ -247,9 +244,9 @@ public class T0nj0547ServiceImp implements T0nj0547Service {
         } else
             return false;
     }
-</pre>
+```
 ### 增設異常處理的方法
-<pre style="color:#000000;background:#ffffff;">
+```java
     // 異常訊息處理方法
     private Response handleException(String errorMessage, Response.Status status) {
         resp = "{\"error\":\"" + errorMessage + "\"}";
@@ -257,10 +254,10 @@ public class T0nj0547ServiceImp implements T0nj0547Service {
                        .entity(resp)
                        .build();
     }
-</pre>
+```
 
 ## 增設兩個Insert Table的類別(InsertDbT0nj0547、InsertDbT0nj0547d)
-<pre style="color:#000000;background:#ffffff;">
+```java
 public class InsertDbT0nj0547 {
     private Connection conn = null;
     private T0nj0547 t47;
@@ -292,9 +289,9 @@ public class InsertDbT0nj0547 {
         }
     }
 }
-</pre>
+```
 
-<pre style="color:#000000;background:#ffffff;">
+```java
 public class InsertDbT0nj0547d {
     private Connection conn = null;
     private List&lt;T0nj0547d&gt; t47d = new ArrayList&lt;T0nj0547d&gt;();
@@ -328,7 +325,7 @@ public class InsertDbT0nj0547d {
         ps.close();
     }
 }
-</pre> 
+```
 ## Create Restful Service(post method)
 ![set post](https://github.com/genovalee/PojoMDRestful/blob/master/Demo/src/demo/entity/Image_020.png)
 ## Create Restful Service(get method)
