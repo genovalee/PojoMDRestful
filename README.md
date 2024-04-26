@@ -84,7 +84,9 @@ public class T0nj0547ServiceImp implements T0nj0547Service {
     private Connection conn;
     private String resp = "";
     private String jsonSchema =
+```json
         "{"type":"object","required":["President_No","Business_Current_Status","Business_Current_Status_Desc","Business_Organization_Type_Desc","Agency","Agency_Desc","Business_Address"],"properties":{"President_No":{"type":"string"},"Business_Name":{"type":"string"},"Business_Current_Status":{"type":"string"},"Business_Current_Status_Desc":{"type":"string"},"Business_Organization_Type_Desc":{"type":"string"},"Agency":{"type":"string"},"Agency_Desc":{"type":"string"},"Business_Address":{"type":"string"},"Business_Item_Old":{"type":"array","items":{"type":"object","properties":{"Business_Seq_No":{"type":"string"},"Business_Item":{"type":"string"},"Business_Item_Desc":{"type":"string"}},"required":["Business_Seq_No","Business_Item","Business_Item_Desc"]}}}}";
+```
 
     /**
      * @throws NamingException
