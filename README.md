@@ -160,7 +160,7 @@ public class T0nj0547ServiceImp implements T0nj0547Service {
             "select bussrfno, bussnm, costsid, costsidcomt, regofc, regofccomt, busslocation from t0nj0547 where bussrfno=? and regofc=?";
         String sql2 = "select bussrfno, regofc, it, salit, salitcomt from t0nj0547d where bussrfno=? and regofc=?";
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
-            List&lt;T0nj0547d&gt; t0nj0547ds = new ArrayList&lt;T0nj0547d&gt;();
+            List<T0nj0547d> t0nj0547ds = new ArrayList<>();
             ps.setString(1, bussrfno);
             ps.setString(2, regofc);
             try (ResultSet rs = ps.executeQuery()) {
@@ -188,7 +188,7 @@ public class T0nj0547ServiceImp implements T0nj0547Service {
 
 ### 增設private extractT0nj0547FromResultSet方法，return T0nj0547物件
 ```java
-    private T0nj0547 extractT0nj0547FromResultSet(ResultSet rs, List&lt;T0nj0547d&gt; t0nj0547ds) throws SQLException {
+    private T0nj0547 extractT0nj0547FromResultSet(ResultSet rs, List<T0nj0547d> t0nj0547ds) throws SQLException {
         T0nj0547 t0nj0547 = new T0nj0547();
         t0nj0547.setBussrfno(rs.getString("bussrfno"));
         t0nj0547.setBussnm(rs.getString("bussnm"));
@@ -218,8 +218,6 @@ public class T0nj0547ServiceImp implements T0nj0547Service {
 ```java
     private boolean isUserAuthenticated(String authString) {
         String decodedAuth = null;
-        // Header is in the format "Basic YXBwdXNlcjAxOnBEZTZHRTNmQXBjQWNHYlY="
-        // header "Authorization" : "Basic appuser01:pDe6GE3fApcAcGbV"
         // We need to extract data before decoding it back to original string
         String[] authParts = authString.split("\\s+");
         String authInfo = authParts[1];
@@ -238,7 +236,7 @@ public class T0nj0547ServiceImp implements T0nj0547Service {
         StringTokenizer tokenizer = new StringTokenizer(decodedAuth, ":");
         String userName = tokenizer.nextToken();
         String password = tokenizer.nextToken();
-        if ("appuser01".equals(userName) && "pDe6GE3fApcAcGbV".equals(password)) {
+        if ("username".equals(userName) && "XXXXXX".equals(password)) {
             return true;
         } else
             return false;
@@ -293,14 +291,14 @@ public class InsertDbT0nj0547 {
 ```java
 public class InsertDbT0nj0547d {
     private Connection conn = null;
-    private List&lt;T0nj0547d&gt; t47d = new ArrayList&lt;T0nj0547d&gt;();
+    private List<T0nj0547d> t47d = new ArrayList<>();
     private String bussrfno = "";
     private String regofc = "";
 
     public InsertDbT0nj0547d() {
     }
 
-    public InsertDbT0nj0547d(Connection conn, List&lt;T0nj0547d&gt; t47d, String bussrfno, String regofc) {
+    public InsertDbT0nj0547d(Connection conn, List<T0nj0547d> t47d, String bussrfno, String regofc) {
         this.conn = conn;
         this.t47d = t47d;
         this.bussrfno = bussrfno;
